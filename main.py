@@ -11,7 +11,7 @@ class Message():
         return f"({self.client_id}, {self.message})"
 
 
-banned_clients = set()  # Set of banned clients
+banned_clients = set()
 connected = {}
 next_client_id = 1
 messages = []
@@ -40,7 +40,7 @@ async def handle_client(websocket, path):
                 if id != client_id:
                     await client.send(f"Client {client_id}: {message}")
 
-            if "rum" in message.lower():  # Check for "rum" or "Rum" in the message
+            if "rum" in message.lower():
                 banned_clients.add(client_ip)
                 await websocket.send("You have been banned for using the word 'rum'.")
                 await websocket.close()
