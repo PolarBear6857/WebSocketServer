@@ -24,7 +24,7 @@ async def handle_client(websocket, path):
 
     client_ip = websocket.remote_address[0]
 
-    if client_ip in banned_clients:
+    if client_id in banned_clients:
         await websocket.send("You are banned from the server.")
         await websocket.close()
         return
@@ -41,7 +41,7 @@ async def handle_client(websocket, path):
                     await client.send(f"Client {client_id}: {message}")
 
             if "rum" in message.lower():
-                banned_clients.add(client_ip)
+                banned_clients.add(client_id)
                 await websocket.send("You have been banned for using the word 'rum'.")
                 await websocket.close()
 
